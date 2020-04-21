@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+    <link rel="stylesheet"
+	      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+				integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+				crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+				integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+				crossorigin="anonymous">
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+	<div class="text-center">
+        <a class="btn btn-primary" href="/about">About</a>
+				<a class="btn btn-primary" href="/hangman">Hangman Word Game</a>
+        <a class="btn btn-primary" href="/blackjack">Blackjack</a>
+        <a class="btn btn-primary" href="/team_bio">Team Bio</a>
+				  </div>
+    <div class="container" id="content">
+		{% block content %}{% endblock %}
+	</div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2019 by <a href="http://domain.invalid/">you</a>.
+        {% endblock %}
+    </div>
+
+  </body>
+</body>
+</html>
