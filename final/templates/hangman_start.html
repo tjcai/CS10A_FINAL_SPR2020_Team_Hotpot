@@ -1,0 +1,14 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Hangman</h1>
+  </div>
+  <p>Here is your word</p>
+  {{state['word_so_far']}}
+  <form method="post" action="/hangman/play">
+    Guess a letter: <input type="text" name="guess">
+    <br>
+    <input type="submit" class="btn btn-lg btn-danger">
+  </form>
+{% endblock %}

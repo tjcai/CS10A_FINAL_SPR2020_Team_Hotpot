@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
+import hangman_app
 app = Flask(__name__)
+
 
 @app.route('/')
 @app.route('/main')
@@ -8,7 +10,7 @@ def main():
 
 @app.route('/about')
 def about():
-    return "<h2> This game center is Team Hotpot's final project. Hopw you enjoy. </h2>"
+    return render_template("about.html")
 
 @app.route('/team_bio')
 def team_bio():
@@ -32,9 +34,7 @@ state = {'guesses':[],
 @app.route('/hangman/start')
 def hangman_start():
     global state
-    #state['word']=hangman_app.generate_random_word()
-    from random import choice
-    state['word'] = choice("python happy you me who they".split())
+    state['word']=hangman_app.generate_random_word()
     state['guesses'] = []
     l = len(state['word'])
     b = '-'*l
@@ -95,4 +95,4 @@ def blackjack_start():
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0',port=3000,debug = True)
+    app.run(debug = True)
