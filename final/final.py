@@ -29,7 +29,8 @@ state = {'guesses':[],
         'word_so_far':"-",
         'done':False,
         "chances":6,
-        "response":" "}
+        "response":" ",
+        "one_more_time":" "}
 
 @app.route('/hangman/start')
 def hangman_start():
@@ -46,7 +47,6 @@ def hangman_play():
     global state
     if request.method == 'GET':
         return hangman_start()
-
     elif request.method == 'POST':
 
         while not state['done']:
@@ -77,13 +77,16 @@ def hangman_play():
                 state['done'] = True
             elif state['chances'] == 0:
                 state['response'] = "You have used up your chances. The word is: %s" % state['word']
+                state["one_more_time"] = "hit the red NEW GAME button for another game"
                 state['done'] = True
-
             return render_template('hangman_play.html',state=state)
+
+
 
 @app.route('/blackjack')
 def blackjack():
     return render_template("blackjack.html")
+
 
 @app.route('/blackjack/start')
 def blackjack_start():
