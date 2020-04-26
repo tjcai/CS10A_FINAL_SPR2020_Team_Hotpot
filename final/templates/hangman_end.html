@@ -1,0 +1,27 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Hangman
+      <a href="/hangman/start"
+         class="btn btn-lg btn-danger">
+        New Game
+      </a>
+    </h1>
+  </div>
+  <form method="post" action="/hangman/play">
+    <br>
+  </form>
+  <p>Here is the remaining chances you have: </p>
+  {{state['chances']}}
+  <p> </p>
+  {{state['response']}}
+  <br>
+  <p>Here are the letters you've guessed already</p>
+  {% for x in state['guesses'] %}
+   {{x}}
+  {% endfor %}
+  <p>
+    {{state['one_more_time']}}
+  </p>
+{% endblock %}

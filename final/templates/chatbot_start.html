@@ -1,0 +1,14 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Chatbot</h1>
+  </div>
+  <p1>Here is your personalized chat robot who lead you to any game you want to play on this website</p1>
+  <p2>We have games like hangman, blackjack, and war. <p2>
+  <form method="post" action="hangman/start">
+    Input the game you want to play: <input type="text" name="game">
+    <br>
+    <input href="/" type="submit" class="btn btn-lg btn-danger">
+  </form>
+{% endblock %}

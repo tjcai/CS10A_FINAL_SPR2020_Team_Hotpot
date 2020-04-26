@@ -33,6 +33,7 @@ state = {'guesses':[],
         "one_more_time":" "}
 
 @app.route('/hangman/start')
+
 def hangman_start():
     global state
     state['word']=hangman_app.generate_random_word()
@@ -73,13 +74,16 @@ def hangman_play():
                 state['guesses'] += [letter]
 
             if state['word_so_far'] == state['word']:
-                state['response'] = "You have guessed the word! The word is: %s" % state['word']
+                state['response'] = "You have guessed the word! Congradulations! The word is: %s" % state['word']
                 state['done'] = True
             elif state['chances'] == 0:
-                state['response'] = "You have used up your chances. The word is: %s" % state['word']
+                state['response'] = "You have used up your chances. You Lost! The word is: %s" % state['word']
                 state["one_more_time"] = "hit the red NEW GAME button for another game"
                 state['done'] = True
-            return render_template('hangman_play.html',state=state)
+            if state['done'] == True:
+                return render_template('hangman_end.html',state=state)
+            else:
+                return render_template('hangman_play.html',state=state)
 
 
 
@@ -92,10 +96,26 @@ def blackjack():
 def blackjack_start():
     return render_template("blackjack_start.html")
 
+@app.route('/chatbot')
+def chat_bot():
+    return render_template("chat_bot.html")
 
+@app.route('/chatbot/start')
+def chatbot_start():
+    list = ["hangman","blackjack","war"]
+    return render_template('chatbot_start.html',state=state)
 
-
-
+@app.route('/chatbot/play',methods=['GET','POST'])
+def chatbot_play():
+    if request.method == 'GET':
+        return chatbot_start()
+    elif request.method == 'POST':
+        game = request.form['game']
+        for i in list:
+            if i == game:
+                stipped = i.strip("")
+                link = stipped/start
+    return render_template('chatbot_start.html')
 
 if __name__ == '__main__':
     app.run(debug = True)
