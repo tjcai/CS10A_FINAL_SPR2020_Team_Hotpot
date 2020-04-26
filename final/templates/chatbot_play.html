@@ -1,0 +1,19 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Chatbot</h1>
+  </div>
+  <p1>Now, please click the button and enjoy!</p1>
+  <a href={{url_for(link)}}
+     class="btn btn-lg btn-success">
+    {{game}}
+  </a>
+  <br>
+  <br>
+  <p2>Want to rechoice a game? Just click!</p2>
+  <a href='/chatbot/start'
+     class="btn btn-lg btn-secondary">
+    Back
+  </a>
+{% endblock %}

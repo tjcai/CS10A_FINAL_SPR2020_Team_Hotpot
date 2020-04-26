@@ -5,6 +5,7 @@ to 21 without going over.
 """
 from Card import Card
 from Deck import Deck
+from random import shuffle
 
 class BlackJackCard(Card):
     """
@@ -33,6 +34,7 @@ class BlackJackDeck(Deck):
         for suit in "Hearts Spades Diamonds Clubs".split():
             for value in "A 2 3 4 5 6 7 8 9 10 J Q K".split():
                 cards.append(BlackJackCard(suit,value))
+        cards = shuffle(cards)
         return cards
 
 class BlackJack:

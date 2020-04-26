@@ -33,7 +33,6 @@ state = {'guesses':[],
         "one_more_time":" "}
 
 @app.route('/hangman/start')
-
 def hangman_start():
     global state
     state['word']=hangman_app.generate_random_word()
@@ -49,7 +48,6 @@ def hangman_play():
     if request.method == 'GET':
         return hangman_start()
     elif request.method == 'POST':
-
         while not state['done']:
             letter = request.form['guess']
             if letter in state['guesses']:
@@ -77,7 +75,7 @@ def hangman_play():
                 state['response'] = "You have guessed the word! Congradulations! The word is: %s" % state['word']
                 state['done'] = True
             elif state['chances'] == 0:
-                state['response'] = "You have used up your chances. You Lost! The word is: %s" % state['word']
+                state['response'] = "You have used up your chances. The word is: %s" % state['word']
                 state["one_more_time"] = "hit the red NEW GAME button for another game"
                 state['done'] = True
             if state['done'] == True:
@@ -96,26 +94,34 @@ def blackjack():
 def blackjack_start():
     return render_template("blackjack_start.html")
 
+"""
+Below are codes for chatbot
+"""
+
 @app.route('/chatbot')
 def chat_bot():
     return render_template("chat_bot.html")
 
+list = ["hangman","blackjack","war"]
+
 @app.route('/chatbot/start')
 def chatbot_start():
-    list = ["hangman","blackjack","war"]
-    return render_template('chatbot_start.html',state=state)
+    global list
+    return render_template('chatbot_start.html') #why state=state?  ,state=state
 
 @app.route('/chatbot/play',methods=['GET','POST'])
 def chatbot_play():
+    global list
     if request.method == 'GET':
         return chatbot_start()
     elif request.method == 'POST':
         game = request.form['game']
         for i in list:
             if i == game:
-                stipped = i.strip("")
-                link = stipped/start
-    return render_template('chatbot_start.html')
+                stipped = i.strip(" ")
+                link = stipped + '_start'
+    return render_template('chatbot_play.html', link=link, game=game)
+
 
 if __name__ == '__main__':
     app.run(debug = True)
