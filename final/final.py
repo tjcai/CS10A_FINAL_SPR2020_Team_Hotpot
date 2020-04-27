@@ -122,6 +122,5 @@ def chatbot_play():
                 link = stipped + '_start'
     return render_template('chatbot_play.html', link=link, game=game)
 
-
 if __name__ == '__main__':
     app.run(debug = True)
