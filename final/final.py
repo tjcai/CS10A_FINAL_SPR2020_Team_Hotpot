@@ -102,7 +102,7 @@ Below are codes for chatbot
 def chat_bot():
     return render_template("chat_bot.html")
 
-list = ["hangman","blackjack","war"]
+list = ["hangman","blackjack","guessing"]
 
 @app.route('/chatbot/start')
 def chatbot_start():
@@ -121,6 +121,63 @@ def chatbot_play():
                 stipped = i.strip(" ")
                 link = stipped + '_start'
     return render_template('chatbot_play.html', link=link, game=game)
+
+"""
+Below are codes for guess a number
+"""
+import random
+@app.route('/guessing')
+def guess_a_number():
+    global state2
+    state2 = {'guesses':[],
+            'number':0,
+            'done':False,
+            "chances":10,
+            "response":" ",
+            "one_more_time":" "}
+    return render_template("guess_a_number.html")
+
+@app.route('/guessing/start')
+def guess_start():
+    global state2
+    state2['number']=random.randint(0,100)
+    return render_template('guess_a_number_start.html') #why state=state?  ,state=state
+
+@app.route('/guessing/play',methods=['GET','POST'])
+def guess_play():
+    global list
+    if request.method == 'GET':
+        return guess_start()
+    elif request.method == 'POST':
+        while not state2['done']:
+            n = request.form['guessn']
+            if n in state2['guesses']:
+                state2['response'] = "You have guessed this number. Try a knew one."
+                state2['chances'] -= 1
+            elif int(n) < state2['number']:
+                state2['chances'] -= 1
+                state2['response'] = "Your guess is too small!"
+                state2['guesses'].append(n)
+            elif int(n) > state2['number']:
+                state2['response'] = "You have guessed wrong. Try another letter."
+                state2['chances'] -= 1
+                state2['response'] = "Your guess is too large!"
+                state2['guesses'].append(n)
+
+            if int(n) == state2['number']:
+                state2['response'] = "You have guessed the number! Congradulations! The number is: %s" % state2['number']
+                state2["one_more_time"] = "hit the red NEW GAME button for another game"
+                state2['done'] = True
+            elif state2['chances'] == 0:
+                state2['response'] = "You have used up your chances. The number is: %s" % state2['number']
+                state2["one_more_time"] = "hit the red NEW GAME button for another game"
+                state2['done'] = True
+            if state2['done'] == True:
+                return render_template('guess_end.html',state2=state2)
+            else:
+                return render_template('guess_a_number_play.html',state2=state2)
+
+    return render_template('guess_a_number_play.html', state2=state2, n=n)
 
 if __name__ == '__main__':
     app.run(debug = True)

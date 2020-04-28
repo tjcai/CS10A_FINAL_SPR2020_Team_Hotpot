@@ -1,0 +1,29 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Guess a Number
+      <a href="/guessing/start"
+         class="btn btn-lg btn-danger">
+        New Game
+      </a>
+    </h1>
+  </div>
+  <p1>This game randomly generate a number between 0 and 100, you have 10 chances to guess the number.</p1>
+  <p2>Every time you guess wrongly, the system will tell you your guess is larger or smaller  <p2>
+  <form method="post" action="/guessing/play">
+    <br>
+  </form>
+  <p>Here is the remaining chances you have: </p>
+  {{state2['chances']}}
+  <p> </p>
+  {{state2['response']}}
+  <br>
+  <p>Here are the letters you've guessed already</p>
+  {% for x in state2['guesses'] %}
+   {{x}}
+  {% endfor %}
+  <p>
+    {{state2['one_more_time']}}
+  </p>
+{% endblock %}

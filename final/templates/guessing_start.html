@@ -1,0 +1,14 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Guess a Number</h1>
+  </div>
+  <p1>This game randomly generate a number between 0 and 100, you have 10 chances to guess the number.</p1>
+  <p2>Every time you guess wrongly, the system will tell you your guess is larger or smaller  <p2>
+  <form method="post" action="/guessing/play">
+    Input your first guess: <input type="text" name="guessn">
+    <br>
+    <input type="submit" class="btn btn-lg btn-danger">
+  </form>
+{% endblock %}
