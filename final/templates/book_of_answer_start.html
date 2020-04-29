@@ -1,0 +1,12 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Book of Answers</h1>
+  </div>
+  <form method="post" action="/book_of_answers_start/play">
+    Think one question silently. Ready for your answer? Yes or No: <input type="text" name="answer">
+    <br>
+    <input type="submit" class="btn btn-lg btn-danger">
+  </form>
+{% endblock %}
