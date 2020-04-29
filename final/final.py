@@ -184,7 +184,7 @@ def guessing_play():
 """
 Below are codes of Book of Arts
 """
-texts=['Do Not Bet On It','Deal With It Later','It is Significant','Move On','Do not Hesitate','Speak Up About It','Approach Cautiously','Focus On Your Home Life','Investigate And Enjoy It','Definitely','Absolutely Not','Better To Wait','It Seems Assured','Do It Early','Keep It To Yourself','Doubt It','Be Patient','Get It In Writing','Avoid The First Solution','Remain Flexable']
+texts=['Do Not Bet On It','Deal With It Later','It is Significant','Move On','Do not Hesitate','Speak Up About It','Approach Cautiously','Focus On Your Home Life','Investigate And Enjoy It','Definitely','Absolutely Not','Better To Wait','It Seems Assured','Do It Early','Keep It To Yourself','Doubt It','Be Patient','Get It In Writing','Avoid The First Solution','Remain Flexible']
 
 @app.route('/book_of_answers')
 def book_of_answers():
@@ -206,7 +206,7 @@ def book_of_answers_play():
             out = texts[b]
             return render_template('book_of_answers_play.html', out = out)
         else:
-            surprise = 'Welcome back to our main page! Surprise!'
+            surprise = '----Welcome back to our main page! Surprise!----'
             return render_template('main.html',surprise = surprise)
 
 
