@@ -1,0 +1,14 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Book of Answers</h1>
+    <p>Here is your answer:</p>
+    <p>{{out}}</p>
+    <a href='/book_of_answers/start'
+    class="btn btn-lg btn-info">
+    Ask a new question?
+    </a>
+  </div>
+
+{% endblock %}

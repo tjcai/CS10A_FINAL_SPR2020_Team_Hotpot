@@ -143,7 +143,7 @@ def guessing():
 def guessing_start():
     global state2
     state2['number']=random.randint(0,100)
-    return render_template('guessing_start.html') 
+    return render_template('guessing_start.html')
 
 @app.route('/guessing/play',methods=['GET','POST'])
 def guessing_play():
@@ -180,6 +180,36 @@ def guessing_play():
                 return render_template('guessing_play.html',state2=state2)
 
     return render_template('guessing_play.html', state2=state2, n=n)
+
+"""
+Below are codes of Book of Arts
+"""
+texts=['Do Not Bet On It','Deal With It Later','It is Significant','Move On','Do not Hesitate','Speak Up About It','Approach Cautiously','Focus On Your Home Life','Investigate And Enjoy It','Definitely','Absolutely Not','Better To Wait','It Seems Assured','Do It Early','Keep It To Yourself','Doubt It','Be Patient','Get It In Writing','Avoid The First Solution','Remain Flexible']
+
+@app.route('/book_of_answers')
+def book_of_answers():
+    return render_template('book_of_answers.html')
+
+@app.route('/book_of_answers/start')
+def book_of_answers_start():
+    return render_template('book_of_answers_start.html')
+
+@app.route('/book_of_answers/play',methods=['GET','POST'])
+def book_of_answers_play():
+    global texts
+    if request.method == 'GET':
+        return book_of_answers_start()
+    elif request.method == 'POST':
+        a = request.form['answer']
+        if a == 'yes':
+            b = random.randint(0,19)
+            out = texts[b]
+            return render_template('book_of_answers_play.html', out = out)
+        else:
+            surprise = '----Welcome back to our main page! Surprise!----'
+            return render_template('main.html',surprise = surprise)
+
+
 
 if __name__ == '__main__':
     app.run(debug = True)
