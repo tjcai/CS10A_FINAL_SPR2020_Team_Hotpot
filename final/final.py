@@ -102,7 +102,7 @@ Below are codes for chatbot
 def chat_bot():
     return render_template("chat_bot.html")
 
-list = ["hangman","blackjack","guessing","book of answers"]
+list = ["hangman","blackjack","guess a number","book of answers"]
 
 @app.route('/chatbot/start')
 def chatbot_start():
@@ -114,16 +114,19 @@ def chatbot_play():
     if request.method == 'GET':
         return chatbot_start()
     elif request.method == 'POST':
-        game = request.form['game']
-        for i in list:
-            if i == game:
-                stipped = i.strip(" ")
-                wo_li = stipped.split(" ")
-                n = ''
-                for w in wo_li:
-                    n += w + ' '
-                link = n + '_start'
-    return render_template('chatbot_play.html', link=link, game=game)
+        game = request.form['game'].lower()
+        if game in list:
+            stipped = game.strip(" ")
+            wo_li = stipped.split(" ")
+            n = ''
+            for i in range(len(wo_li)-1):
+                n += (wo_li[i] + '_')
+            n += wo_li[-1]
+            link = n + '_start'
+            return render_template('chatbot_play.html', link=link, game=game)
+        else:
+            guidance = 'Please input correct name of games!'
+            return render_template('chatbot_start.html', guidance = guidance)
 
 """
 Below are codes for guessing a number
@@ -137,22 +140,22 @@ state2 = {'guesses':[],
         "response":" ",
         "one_more_time":" "}
 
-@app.route('/guessing')
-def guessing():
+@app.route('/guess_a_number')
+def guess_a_number():
     global state2
-    return render_template("guessing.html")
+    return render_template("guess_a_number.html")
 
-@app.route('/guessing/start')
-def guessing_start():
+@app.route('/guess_a_number/start')
+def guess_a_number_start():
     global state2
     state2['number']=random.randint(0,100)
-    return render_template('guessing_start.html')
+    return render_template('guess_a_number_start.html')
 
-@app.route('/guessing/play',methods=['GET','POST'])
-def guessing_play():
+@app.route('/guess_a_number/play',methods=['GET','POST'])
+def guess_a_number_play():
     global state2
     if request.method == 'GET':
-        return guessing_start()
+        return guess_a_number_start()
     elif request.method == 'POST':
         while not state2['done']:
             n = request.form['guessn']
@@ -178,11 +181,11 @@ def guessing_play():
                 state2["one_more_time"] = "hit the red NEW GAME button for another game"
                 state2['done'] = True
             if state2['done'] == True:
-                return render_template('guessing_end.html',state2=state2)
+                return render_template('guess_a_number_end.html',state2=state2)
             else:
-                return render_template('guessing_play.html',state2=state2)
+                return render_template('guess_a_number_play.html',state2=state2)
 
-    return render_template('guessing_play.html', state2=state2, n=n)
+    #return render_template('guessing_play.html', state2=state2, n=n)
 
 """
 Below are codes of Book of Arts
