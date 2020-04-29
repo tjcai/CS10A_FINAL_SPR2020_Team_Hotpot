@@ -123,31 +123,33 @@ def chatbot_play():
     return render_template('chatbot_play.html', link=link, game=game)
 
 """
-Below are codes for guess a number
+Below are codes for guessing a number
 """
 import random
+
+state2 = {'guesses':[],
+        'number':0,
+        'done':False,
+        "chances":5,
+        "response":" ",
+        "one_more_time":" "}
+
 @app.route('/guessing')
-def guess_a_number():
+def guessing():
     global state2
-    state2 = {'guesses':[],
-            'number':0,
-            'done':False,
-            "chances":10,
-            "response":" ",
-            "one_more_time":" "}
-    return render_template("guess_a_number.html")
+    return render_template("guessing.html")
 
 @app.route('/guessing/start')
-def guess_start():
+def guessing_start():
     global state2
     state2['number']=random.randint(0,100)
-    return render_template('guess_a_number_start.html') #why state=state?  ,state=state
+    return render_template('guessing_start.html') 
 
 @app.route('/guessing/play',methods=['GET','POST'])
-def guess_play():
-    global list
+def guessing_play():
+    global state2
     if request.method == 'GET':
-        return guess_start()
+        return guessing_start()
     elif request.method == 'POST':
         while not state2['done']:
             n = request.form['guessn']
@@ -173,11 +175,11 @@ def guess_play():
                 state2["one_more_time"] = "hit the red NEW GAME button for another game"
                 state2['done'] = True
             if state2['done'] == True:
-                return render_template('guess_end.html',state2=state2)
+                return render_template('guessing_end.html',state2=state2)
             else:
-                return render_template('guess_a_number_play.html',state2=state2)
+                return render_template('guessing_play.html',state2=state2)
 
-    return render_template('guess_a_number_play.html', state2=state2, n=n)
+    return render_template('guessing_play.html', state2=state2, n=n)
 
 if __name__ == '__main__':
     app.run(debug = True)
