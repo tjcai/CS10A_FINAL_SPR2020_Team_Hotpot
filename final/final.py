@@ -102,11 +102,10 @@ Below are codes for chatbot
 def chat_bot():
     return render_template("chat_bot.html")
 
-list = ["hangman","blackjack","guessing"]
+list = ["hangman","blackjack","guessing","book of answers"]
 
 @app.route('/chatbot/start')
 def chatbot_start():
-    global list
     return render_template('chatbot_start.html') #why state=state?  ,state=state
 
 @app.route('/chatbot/play',methods=['GET','POST'])
@@ -119,7 +118,11 @@ def chatbot_play():
         for i in list:
             if i == game:
                 stipped = i.strip(" ")
-                link = stipped + '_start'
+                wo_li = stipped.split(" ")
+                n = ''
+                for w in wo_li:
+                    n += w + ' '
+                link = n + '_start'
     return render_template('chatbot_play.html', link=link, game=game)
 
 """
@@ -201,7 +204,7 @@ def book_of_answers_play():
         return book_of_answers_start()
     elif request.method == 'POST':
         a = request.form['answer']
-        if a == 'yes':
+        if a.lower() == 'yes':
             b = random.randint(0,19)
             out = texts[b]
             return render_template('book_of_answers_play.html', out = out)
