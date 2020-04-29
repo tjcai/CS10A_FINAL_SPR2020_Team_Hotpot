@@ -2,8 +2,8 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1>Hangman
-      <a href="/hangman/start"
+    <h1>Blackjack
+      <a href="/blackjack/start"
          class="btn btn-lg btn-danger">
         New Game
       </a>
@@ -11,7 +11,7 @@
   </div>
   <p>Here is your word</p>
   {{state['word_so_far']}}
-  <form method="post" action="/hangman/play">
+  <form method="post" action="/blackjack/play">
     Guess a letter: <input type="text" name="guess">
     <br>
     <input type="submit" class="btn btn-lg btn-danger">

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import hangman_app
+import random
 app = Flask(__name__)
 
 
@@ -84,20 +85,9 @@ def hangman_play():
                 return render_template('hangman_play.html',state=state)
 
 
-
-@app.route('/blackjack')
-def blackjack():
-    return render_template("blackjack.html")
-
-
-@app.route('/blackjack/start')
-def blackjack_start():
-    return render_template("blackjack_start.html")
-
 """
 Below are codes for chatbot
 """
-
 @app.route('/chatbot')
 def chat_bot():
     return render_template("chat_bot.html")
@@ -131,8 +121,6 @@ def chatbot_play():
 """
 Below are codes for guessing a number
 """
-import random
-
 state2 = {'guesses':[],
         'number':0,
         'done':False,
@@ -214,6 +202,49 @@ def book_of_answers_play():
         else:
             surprise = '----Welcome back to our main page! Surprise!----'
             return render_template('main.html',surprise = surprise)
+
+"""
+Below are codes for an easy version of blackjack
+"""
+bj = {'computer':[],'user':[],'c_r':'','u_r':'','done':False,
+        'result':''} #computer response, user reponse
+
+@app.route('/blackjack')
+def blackjack():
+    return render_template("blackjack.html")
+
+@app.route('/blackjack/start')
+def blackjack_start():
+    global bj
+    card=["A","K","Q","J","10","9","8","7","6","5","4","3","2"]
+    value=[11,10,10,10,10,9,8,7,6,5,4,3,2]
+    computer1=random.randint(0,12)
+    computer2=random.randint(0,12)
+    bj['c_r'] = "The banker's cards are: * " + card[computer2]
+    user1=random.randint(0,12)
+    user2=random.randint(0,12)
+    bj['u_r'] = "Your cards are: " + card[user1] + ' ' + card[user2]
+    if value[computer1] + value[computer2] <= 21 and value[user1] + value[user2] <= 21:
+        return render_template("blackjack_start.html",bj = bj)
+    elif value[computer1] + value[computer2] <= 21:
+        bj['result'] = "You win!"
+        return render_template("blackjack_start.html", bj = bj)
+    else:
+        bj['u_r'] = "You Lose!"
+
+"""
+@app.route('/blackjack/play',methods = ['GET','POST'])
+def blackjack_play():
+    global bj
+    if request.method == 'GET':
+        return blackjack_start()
+    elif request.method == 'POST':
+        while not bj['done']:
+            reply = request.form['one_more_card']
+            if reply.lower() == 'yes':
+"""
+
+
 
 
 

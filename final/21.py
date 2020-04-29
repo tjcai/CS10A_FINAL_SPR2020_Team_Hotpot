@@ -1,6 +1,7 @@
 from random import*
 import time
 card=["A","K","Q","J","10","9","8","7","6","5","4","3","2"]
+suits = ['']
 
 value=[11,10,10,10,10,9,8,7,6,5,4,3,2]
 
@@ -9,7 +10,7 @@ print("The banker is dealing the card……")
 time.sleep(2)
 computer1=randint(0,12)
 computer2=randint(0,12)
-print("The banker's cards are:", card[computer1],card[computer2])
+print("The banker's cards are: *",card[computer2])
 user1=randint(0,12)
 user2=randint(0,12)
 print("Your cards are:", card[user1],card[user2])
@@ -28,7 +29,7 @@ if b.lower()=="yes":
             print("Tie.")
         else:
             print("You Lose!")
-        
+
 
 if b.lower()=="no":
     total_computer=value[computer1]+value[computer2]
@@ -42,9 +43,3 @@ if b.lower()=="no":
             print("Tie.")
         else:
             print("You Lose!")
-
-    
-    
-    
-
-

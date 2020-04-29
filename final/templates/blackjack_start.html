@@ -4,4 +4,15 @@
   <div class="jumbotron">
     <h1>Blackjack</h1>
   </div>
+  <p>Here is the first round:</p>
+  {{bj['c_r']}}
+  <br>
+  {{bj['u_r']}}
+  <br>
+  {{bj['result']}}
+  <form method="post" action="/blackjack/play">
+    One more card? Yes or No: <input type="text" name="one_more_card">
+    <br>
+    <input type="submit" class="btn btn-lg btn-danger">
+  </form>
 {% endblock %}
