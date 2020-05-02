@@ -125,7 +125,7 @@ Below are codes for guessing a number
 state2 = {'guesses':[],
         'number':0,
         'done':False,
-        "chances":5,
+        "chances":7,
         "response":" ",
         "one_more_time":" "}
 
@@ -137,6 +137,7 @@ def guess_a_number():
 @app.route('/guess_a_number/start')
 def guess_a_number_start():
     global state2
+    state2['guesses'] = []
     state2['number']=random.randint(0,100)
     return render_template('guess_a_number_start.html')
 
@@ -149,7 +150,7 @@ def guess_a_number_play():
         while not state2['done']:
             n = request.form['guessn']
             if n in state2['guesses']:
-                state2['response'] = "You have guessed this number. Try a knew one."
+                state2['response'] = "You have guessed this number. Try a new one."
                 state2['chances'] -= 1
             elif int(n) < state2['number']:
                 state2['chances'] -= 1
@@ -162,19 +163,23 @@ def guess_a_number_play():
                 state2['guesses'].append(n)
 
             if int(n) == state2['number']:
-                state2['response'] = "You have guessed the number! Congradulations! The number is: %s" % state2['number']
-                state2["one_more_time"] = "hit the red NEW GAME button for another game"
+                state2['response'] = "Congradulations! You have guessed the number! The number is: %s" % state2['number']
+                state2["one_more_time"] = "Hit the red NEW GAME button for another game"
                 state2['done'] = True
+                return render_template('guess_a_number_end_1.html',state2=state2)
             elif state2['chances'] == 0:
                 state2['response'] = "You have used up your chances. The number is: %s" % state2['number']
-                state2["one_more_time"] = "hit the red NEW GAME button for another game"
+                state2["one_more_time"] = "Hit the red NEW GAME button for another game"
                 state2['done'] = True
             if state2['done'] == True:
-                return render_template('guess_a_number_end.html',state2=state2)
+                return render_template('guess_a_number_end_2.html',state2=state2)
             else:
                 return render_template('guess_a_number_play.html',state2=state2)
 
-    #return render_template('guessing_play.html', state2=state2, n=n)
+@app.route('/guess_a_number/method')
+def guess_a_number_method():
+    return render_template("guess_a_number_method.html")
+
 
 """
 Below are codes of Book of Arts

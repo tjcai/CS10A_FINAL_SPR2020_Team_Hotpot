@@ -9,14 +9,7 @@
       </a>
     </h1>
   </div>
-  <p1>This game randomly generate a number between 0 and 100, you have 10 chances to guess the number.</p1>
-  <p2>Every time you guess wrongly, the system will tell you your guess is larger or smaller  <p2>
-  <form method="post" action="/guess_a_number/play">
-    <br>
-  </form>
-  <p>Here is the remaining chances you have: </p>
-  {{state2['chances']}}
-  <p> </p>
+  <p5> </p5>
   {{state2['response']}}
   <br>
   <p>Here are the letters you've guessed already</p>
@@ -26,4 +19,8 @@
   <p>
     {{state2['one_more_time']}}
   </p>
+  <div align="center">
+    <img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2019/04/thumbnail-7075f02d50b2e1b87acaac02e0592003.jpeg" width="500">    
+  </div>
+
 {% endblock %}

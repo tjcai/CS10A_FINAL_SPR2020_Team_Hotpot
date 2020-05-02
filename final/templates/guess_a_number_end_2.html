@@ -1,0 +1,34 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Guess a Number
+      <a href="/guess_a_number/start"
+         class="btn btn-lg btn-danger">
+        New Game
+      </a>
+    </h1>
+  </div>
+  <p5> </p5>
+  {{state2['response']}}
+  <br>
+  <p>Here are the letters you've guessed already</p>
+  {% for x in state2['guesses'] %}
+   {{x}}
+  {% endfor %}
+  <p>
+    {{state2['one_more_time']}}
+  </p>
+  <div align="center">
+    <img src="https://www.newschoolcivics.com/wp-content/uploads/2014/09/keep-calm-and-play-again-15.png" width="300">
+  </div>
+  <br>
+
+  <div align='center'>
+    <a href="/guess_a_number/method"
+       class="btn btn-lg btn-danger">
+      Method to win!
+    </a>
+  </div>
+
+{% endblock %}
