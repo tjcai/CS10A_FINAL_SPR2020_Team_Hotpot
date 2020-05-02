@@ -2,8 +2,8 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1>Guess a Number
-      <a href="/guess_a_number/start"
+    <h1>Guess the Number
+      <a href="/guess_the_number/start"
          class="btn btn-lg btn-danger">
         New Game
       </a>
@@ -11,7 +11,7 @@
   </div>
   <p1>This game randomly generate a number between 0 and 100, you have 5 chances to guess the number.</p1>
   <p2>After guessing a numer, you will know whether it is too large or too small. <p2>
-  <form method="post" action="/guess_a_number/play">
+  <form method="post" action="/guess_the_number/play">
     Guess a number: <input type="text" name="guessn">
     <br>
     <input type="submit" class="btn btn-lg btn-danger">

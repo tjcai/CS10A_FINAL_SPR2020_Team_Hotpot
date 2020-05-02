@@ -19,18 +19,17 @@ def team_bio():
     return render_template("team_bio.html")
 
 """
-Bellow are the codes of hangman game
+Bellow are codes of hangman game
 """
 @app.route('/hangman')
 def hangman():
     return render_template("hangman.html")
 
-global state
 state = {'guesses':[],
         'word':"interesting",
         'word_so_far':"-",
         'done':False,
-        "chances":6,
+        "chances":10,
         "response":" ",
         "one_more_time":" "}
 
@@ -38,7 +37,6 @@ state = {'guesses':[],
 def hangman_start():
     global state
     state['word']=hangman_app.generate_random_word()
-    state['guesses'] = []
     l = len(state['word'])
     b = '-'*l
     state['word_so_far'] = b
@@ -78,7 +76,7 @@ def hangman_play():
                 state['done'] = True
             elif state['chances'] == 0:
                 state['response'] = "You have used up your chances. The word is: %s" % state['word']
-                state["one_more_time"] = "hit the red NEW GAME button for another game"
+                state["one_more_time"] = "Hit the red NEW GAME button for another game"
                 state['done'] = True
             if state['done'] == True:
                 return render_template('hangman_end.html',state=state)
@@ -93,7 +91,7 @@ Below are codes for chatbot
 def chat_bot():
     return render_template("chat_bot.html")
 
-list = ["hangman","blackjack","guess a number","book of answers"]
+list = ["hangman","blackjack","guess the number","book of answers"]
 
 @app.route('/chatbot/start')
 def chatbot_start():
@@ -129,23 +127,23 @@ state2 = {'guesses':[],
         "response":" ",
         "one_more_time":" "}
 
-@app.route('/guess_a_number')
-def guess_a_number():
+@app.route('/guess_the_number')
+def guess_the_number():
     global state2
-    return render_template("guess_a_number.html")
+    return render_template("guess_the_number.html")
 
-@app.route('/guess_a_number/start')
-def guess_a_number_start():
+@app.route('/guess_the_number/start')
+def guess_the_number_start():
     global state2
     state2['guesses'] = []
     state2['number']=random.randint(0,100)
-    return render_template('guess_a_number_start.html')
+    return render_template('guess_the_number_start.html')
 
-@app.route('/guess_a_number/play',methods=['GET','POST'])
-def guess_a_number_play():
+@app.route('/guess_the_number/play',methods=['GET','POST'])
+def guess_the_number_play():
     global state2
     if request.method == 'GET':
-        return guess_a_number_start()
+        return guess_the_number_start()
     elif request.method == 'POST':
         while not state2['done']:
             n = request.form['guessn']
@@ -166,19 +164,19 @@ def guess_a_number_play():
                 state2['response'] = "Congradulations! You have guessed the number! The number is: %s" % state2['number']
                 state2["one_more_time"] = "Hit the red NEW GAME button for another game"
                 state2['done'] = True
-                return render_template('guess_a_number_end_1.html',state2=state2)
+                return render_template('guess_the_number_end_1.html',state2=state2)
             elif state2['chances'] == 0:
                 state2['response'] = "You have used up your chances. The number is: %s" % state2['number']
                 state2["one_more_time"] = "Hit the red NEW GAME button for another game"
                 state2['done'] = True
             if state2['done'] == True:
-                return render_template('guess_a_number_end_2.html',state2=state2)
+                return render_template('guess_the_number_end_2.html',state2=state2)
             else:
-                return render_template('guess_a_number_play.html',state2=state2)
+                return render_template('guess_the_number_play.html',state2=state2)
 
-@app.route('/guess_a_number/method')
-def guess_a_number_method():
-    return render_template("guess_a_number_method.html")
+@app.route('/guess_the_number/method')
+def guess_the_number_method():
+    return render_template("guess_the_number_method.html")
 
 
 """
