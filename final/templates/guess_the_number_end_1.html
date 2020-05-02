@@ -3,14 +3,13 @@
 {% block content %}
   <div class="jumbotron">
     <h1>Guess a Number
-      <a href="/guess_a_number/start"
+      <a href="/guess_the_number/start"
          class="btn btn-lg btn-danger">
         New Game
       </a>
     </h1>
   </div>
-  <p5> </p5>
-  {{state2['response']}}
+  <strong>{{state2['response']}}</strong>
   <br>
   <p>Here are the letters you've guessed already</p>
   {% for x in state2['guesses'] %}
@@ -20,7 +19,7 @@
     {{state2['one_more_time']}}
   </p>
   <div align="center">
-    <img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2019/04/thumbnail-7075f02d50b2e1b87acaac02e0592003.jpeg" width="500">    
+    <img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2019/04/thumbnail-7075f02d50b2e1b87acaac02e0592003.jpeg" width="500">
   </div>
 
 {% endblock %}

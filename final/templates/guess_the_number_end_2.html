@@ -3,14 +3,13 @@
 {% block content %}
   <div class="jumbotron">
     <h1>Guess a Number
-      <a href="/guess_a_number/start"
+      <a href="/guess_the_number/start"
          class="btn btn-lg btn-danger">
         New Game
       </a>
     </h1>
   </div>
-  <p5> </p5>
-  {{state2['response']}}
+  <strong>{{state2['response']}}</strong>
   <br>
   <p>Here are the letters you've guessed already</p>
   {% for x in state2['guesses'] %}
@@ -25,7 +24,7 @@
   <br>
 
   <div align='center'>
-    <a href="/guess_a_number/method"
+    <a href="/guess_the_number/method"
        class="btn btn-lg btn-danger">
       Method to win!
     </a>

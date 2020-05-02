@@ -9,11 +9,15 @@
       </a>
     </h1>
   </div>
-  <p>---------------</p>
+  <p>Here is round {{bj['counter']}}: </p>
   <br>
   {{bj['c_r']}}
   <br>
+  <p>Dealer current points: {{bj['c_p']}}</p>
+  <br>
   {{bj['u_r']}}
+  <br>
+  <p>Player current points: {{bj['u_p']}}</p>
   <br>
   {{bj['result']}}
   <form method="post" action="/blackjack/play">
