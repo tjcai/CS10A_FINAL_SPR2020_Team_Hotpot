@@ -1,0 +1,18 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Blackjack</h1>
+    <a href="/blackjack/start"
+       class="btn btn-lg btn-danger">
+      New Game
+    </a>
+  </div>
+  <p>Final Result: </p>
+  {{bj['c_r']}}
+  <br>
+  {{bj['u_r']}}
+  <br>
+  {{bj['result']}}
+
+{% endblock %}

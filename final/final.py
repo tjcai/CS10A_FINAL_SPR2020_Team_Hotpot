@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from Deck import Deck
 import hangman_app
 import random
 app = Flask(__name__)
@@ -206,8 +207,11 @@ def book_of_answers_play():
 """
 Below are codes for an easy version of blackjack
 """
-bj = {'computer':[],'user':[],'c_r':'','u_r':'','done':False,
-        'result':''} #computer response, user reponse
+
+bj = {'computer':[],'user':[],
+        'c_r':'','u_r':'',
+        'c_v':[],'u_v':[],
+        'done':False,'result':''} #computer response, user reponse
 
 @app.route('/blackjack')
 def blackjack():
@@ -220,19 +224,29 @@ def blackjack_start():
     value=[11,10,10,10,10,9,8,7,6,5,4,3,2]
     computer1=random.randint(0,12)
     computer2=random.randint(0,12)
+    bj['computer'].append(card[computer1])
+    bj['computer'].append(card[computer2])
+    bj['c_v'].append(value[computer1])
+    bj['c_v'].append(value[computer2])
     bj['c_r'] = "The banker's cards are: * " + card[computer2]
     user1=random.randint(0,12)
     user2=random.randint(0,12)
+    bj['user'].append(card[user1])
+    bj['user'].append(card[user2])
+    bj['u_v'].append(value[user1])
+    bj['u_v'].append(value[user2])
     bj['u_r'] = "Your cards are: " + card[user1] + ' ' + card[user2]
-    if value[computer1] + value[computer2] <= 21 and value[user1] + value[user2] <= 21:
-        return render_template("blackjack_start.html",bj = bj)
-    elif value[computer1] + value[computer2] <= 21:
-        bj['result'] = "You win!"
-        return render_template("blackjack_start.html", bj = bj)
+    if sum(bj['c_v']) <= 21 and sum(bj['u_v']) <= 21:
+        bj = bj
+    elif sum(bj['c_v']) >= 21 and sum(bj['u_v']) >= 21:
+        bj['result'] = "Tie"
+    elif sum(bj['c_v']) >= 21:
+        bj['result'] = "You Win!"
     else:
-        bj['u_r'] = "You Lose!"
+        bj['result'] = "You Lose!"
+    return render_template("blackjack_start.html",bj = bj)
 
-"""
+
 @app.route('/blackjack/play',methods = ['GET','POST'])
 def blackjack_play():
     global bj
@@ -242,9 +256,30 @@ def blackjack_play():
         while not bj['done']:
             reply = request.form['one_more_card']
             if reply.lower() == 'yes':
-"""
-
-
+                card=["A","K","Q","J","10","9","8","7","6","5","4","3","2"]
+                value=[11,10,10,10,10,9,8,7,6,5,4,3,2]
+                computer3 = random.randint(0,12)
+                bj['computer'] += [card[computer3]]
+                bj['c_v'] += [value[computer3]]
+                user3 = random.randint(0,12)
+                bj['user'] += [card[user3]]
+                bj['u_v'] += [value[user3]]
+                bj['c_r'] += ' ' + card[computer3]
+                bj['u_r'] += ' ' + card[user3]
+                if sum(bj['c_v']) <= 21 and sum(bj['u_v']) <= 21:
+                    return render_template("blackjack_start.html",bj = bj)
+                elif sum(bj['c_v']) >= 21 and sum(bj['u_v']) >= 21:
+                    bj['result'] = "Tie"
+                    return render_template("blackjack_end.html",bj = bj)
+                elif sum(bj['c_v']) >= 21:
+                    bj['result'] = "You Win!"
+                    return render_template("blackjack_end.html",bj = bj)
+                else:
+                    bj['result'] = "You Lose!"
+                    return render_template("blackjack_end.html",bj = bj)
+            else:
+                return render_template("blackjack_end.html",bj = bj)
+                break
 
 
 

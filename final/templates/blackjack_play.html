@@ -9,21 +9,16 @@
       </a>
     </h1>
   </div>
-  <p>Here is your word</p>
-  {{state['word_so_far']}}
+  <p>---------------</p>
+  <br>
+  {{bj['c_r']}}
+  <br>
+  {{bj['u_r']}}
+  <br>
+  {{bj['result']}}
   <form method="post" action="/blackjack/play">
-    Guess a letter: <input type="text" name="guess">
+    One more card? Yes or No: <input type="text" name="one_more_card">
     <br>
     <input type="submit" class="btn btn-lg btn-danger">
   </form>
-  <p>Here is the remaining chances you have: </p>
-  {{state['chances']}}
-  <p> </p>
-  {{state['response']}}
-  <br>
-  <p>Here are the letters you've guessed already</p>
-  {% for x in state['guesses'] %}
-   {{x}}
-  {% endfor %}
-
 {% endblock %}
