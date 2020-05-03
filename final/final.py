@@ -273,16 +273,19 @@ def blackjack_start():
     bj['u_p'] = sum(bj['u_v'])
     if sum(bj['c_v']) <= 21 and sum(bj['u_v']) <= 21:
         bj = bj
+        return render_template("blackjack_start.html",bj = bj)
     elif sum(bj['c_v']) >= 21 and sum(bj['u_v']) >= 21:
         bj['result'] = "Tie"
         bj['stat'] = 't'
+        return render_template("blackjack_end.html",bj = bj)
     elif sum(bj['c_v']) >= 21:
         bj['result'] = "You Win!"
         bj['stat'] = 'w'
+        return render_template("blackjack_end.html",bj = bj)
     else:
         bj['result'] = "You Lose!"
         bj['stat'] = 'l'
-    return render_template("blackjack_start.html",bj = bj)
+        return render_template("blackjack_end.html",bj = bj)
 
 
 @app.route('/blackjack/play',methods = ['GET','POST'])
