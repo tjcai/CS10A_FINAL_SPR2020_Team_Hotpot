@@ -31,7 +31,8 @@ state = {'guesses':[],
         'done':False,
         "chances":10,
         "response":" ",
-        "one_more_time":" "}
+        "one_more_time":" ",
+        "stat":" "}
 
 @app.route('/hangman/start')
 def hangman_start():
@@ -42,7 +43,8 @@ def hangman_start():
             'done':False,
             "chances":10,
             "response":" ",
-            "one_more_time":" "}
+            "one_more_time":" ",
+            "stat":" "}
     state['word']=hangman_app.generate_random_word()
     l = len(state['word'])
     b = '-'*l
@@ -80,10 +82,12 @@ def hangman_play():
 
             if state['word_so_far'] == state['word']:
                 state['response'] = "You have guessed the word! Congradulations! The word is: %s" % state['word']
+                state['stat'] = 'win'
                 state['done'] = True
             elif state['chances'] == 0:
                 state['response'] = "You have used up your chances. The word is: %s" % state['word']
                 state["one_more_time"] = "Hit the red NEW GAME button for another game"
+                state['stat'] = 'lose'
                 state['done'] = True
             if state['done'] == True:
                 return render_template('hangman_end.html',state=state)
@@ -231,7 +235,7 @@ bj = {'computer':[],'user':[],
         'c_v':[],'u_v':[],
         'done':False,'result':'',
         'counter':1,'hidden':'',
-        'c_p':0, 'u_p':0} #computer response, user reponse
+        'c_p':0, 'u_p':0,'stat':' '} #computer response, user reponse
 
 @app.route('/blackjack')
 def blackjack():
@@ -245,7 +249,9 @@ def blackjack_start():
             'c_v':[],'u_v':[],
             'done':False,'result':'',
             'counter':1,'hidden':'',
-            'c_p':0, 'u_p':0} # c_p is for computer points
+            'c_p':0, 'u_p':0, 'stat':' '} # c_p is for computer points
+    global card
+    global value
     card=["A","K","Q","J","10","9","8","7","6","5","4","3","2"]
     value=[11,10,10,10,10,9,8,7,6,5,4,3,2]
     computer1=random.randint(0,12)
@@ -263,14 +269,19 @@ def blackjack_start():
     bj['u_v'].append(value[user1])
     bj['u_v'].append(value[user2])
     bj['u_r'] = "Your cards are: " + card[user1] + ' ' + card[user2]
+    bj['c_p'] = sum(bj['c_v'][1:])
+    bj['u_p'] = sum(bj['u_v'])
     if sum(bj['c_v']) <= 21 and sum(bj['u_v']) <= 21:
         bj = bj
     elif sum(bj['c_v']) >= 21 and sum(bj['u_v']) >= 21:
         bj['result'] = "Tie"
+        bj['stat'] = 't'
     elif sum(bj['c_v']) >= 21:
         bj['result'] = "You Win!"
+        bj['stat'] = 'w'
     else:
         bj['result'] = "You Lose!"
+        bj['stat'] = 'l'
     return render_template("blackjack_start.html",bj = bj)
 
 
@@ -285,16 +296,14 @@ def blackjack_play():
 
             if reply.lower() == 'yes':
                 bj['counter'] += 1
-                card=["A","K","Q","J","10","9","8","7","6","5","4","3","2"]
-                value=[11,10,10,10,10,9,8,7,6,5,4,3,2]
+                global card
+                global value
                 if sum(bj['c_v']) < 17:
                     computer3 = random.randint(0,12)
                     bj['computer'].append(card[computer3])
                     bj['c_v'].append(value[computer3])
                     c = ' ' + card[computer3]
                     bj['c_r'] += c
-                else:
-                    bj = bj
 
                 user3 = random.randint(0,12)
                 bj['user'].append(card[user3])
@@ -308,8 +317,10 @@ def blackjack_play():
                     return render_template("blackjack_play.html",bj=bj)
                 elif sum(bj['c_v']) >= 21 and sum(bj['u_v']) <= 21:
                     bj['result'] = "You win!"
+                    bj['stat'] = 'w'
                 else:
                     bj['result'] = "You lose!"
+                    bj['stat'] = 'l'
                 bj['c_r'] = "The dealer's cards are: " + bj['hidden'] +' '+ bj['c_r'][26:]
                 bj['c_p'] = sum(bj['c_v'])
                 bj['u_p'] = sum(bj['u_v'])
@@ -326,6 +337,7 @@ def blackjack_play():
                     bj['result'] = "You win!"
                     bj['c_p'] = sum(bj['c_v'])
                     bj['u_p'] = sum(bj['u_v'])
+                    bj['stat'] = 'w'
                     return render_template("blackjack_end.html",bj = bj)
                 bj['done'] = True
 
@@ -333,12 +345,16 @@ def blackjack_play():
         if sum(bj['c_v']) <= 21 and sum(bj['u_v']) <= 21:
             if sum(bj['c_v']) >= sum(bj['u_v']):
                 bj['result'] = "You Lose!"
+                bj['stat'] = 'l'
             else:
                 bj['result'] = "You Win!"
+                bj['stat'] = 'w'
         elif sum(bj['c_v']) >= 21 and sum(bj['u_v']) <= 21:
             bj['result'] = "You Win!"
+            bj['stat'] = 'w'
         else:
             bj['result'] = "You Lose!"
+            bj['stat'] = 'l'
 
         bj['c_r'] = "The dealer's cards are: " + bj['hidden'] +' '+ bj['c_r'][26:]
         bj['u_p'] = sum(bj['u_v'])

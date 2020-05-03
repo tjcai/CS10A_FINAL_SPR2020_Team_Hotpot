@@ -14,8 +14,7 @@
   </form>
   <p>Here is the remaining chances you have: </p>
   {{state['chances']}}
-  <p> </p>
-  {{state['response']}}
+  <strong>{{state['response']}}</strong>
   <br>
   <p>Here are the letters you've guessed already</p>
   {% for x in state['guesses'] %}
@@ -24,4 +23,22 @@
   <p>
     {{state['one_more_time']}}
   </p>
+  {% if state['stat'] == 'win' %}
+    <div align="center">
+        <img src="https://miro.medium.com/max/3200/1*qLPCEk_TQM1qi9mFibLEjw.jpeg" width="300">
+    </div>
+  {% elif state['stat'] == 'lose' %}
+    <div align="center">
+        <img src="https://cdn.dribbble.com/users/992660/screenshots/2408403/again.gif" width="250">
+    </div>
+    <div align="center">
+      <br>
+      <p>Want to win this game? Perhaps use some strategies. Click
+        <a href="http://www.datagenetics.com/blog/april12012/index.html"
+        class="btn btn-lg btn-link">
+        Hangman Strategy</a>
+        and learn more :)</p>
+    </div>
+  {% endif %}
+
 {% endblock %}

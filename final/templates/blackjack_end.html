@@ -18,4 +18,14 @@
   <p>Player's total points: {{bj['u_p']}}</p>
   <br>
   <strong>{{bj['result']}}</strong>
+  <br>
+  {% if bj['stat'] == 'w' %}
+    <div align="center">
+      <img src="https://previews.123rf.com/images/maxborovkov/maxborovkov1808/maxborovkov180800157/111279854-you-win-poster-with-spectrum-brush-strokes-on-white-background-colorful-gradient-brush-design-vector.jpg" width="400">
+    </div>
+  {% elif bj['stat'] == 'l' %}
+    <div align="center">
+      <img src="https://pics.me.me/failure-isproof-that-you-tried-now-go-try-again-11173247.png" width="300">
+    </div>
+  {% endif %}
 {% endblock %}
